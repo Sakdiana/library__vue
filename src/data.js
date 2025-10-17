@@ -1,4 +1,4 @@
-const category = [
+export const category = [
   {
     id: 1,
     name: "Horror",
@@ -21,7 +21,7 @@ const category = [
   },
 ];
 
-const books = [
+export const books = [
   {
     id: 1,
     name: "Dracula",
