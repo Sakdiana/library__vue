@@ -68,11 +68,15 @@
             </button>
 
             <button class="text-sm font-medium hover:underline">Вход</button>
+
+            <button>
+              <img class="w-[30px]" src="/images/svg/fav.svg" alt="">
+            </button>
           </div>
 
-          <div class="menu">
+          <!-- <div class="menu">
             <img src="/images/svg/menu.png" alt="">
-          </div>
+          </div> -->
         </div>
       </div>
     </header>

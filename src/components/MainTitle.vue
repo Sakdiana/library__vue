@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between mb-[100px]">
         <h2 class="font-medium text-[32px] text-white">{{ title }}</h2>
         <button
           class="font-bold text-xs bg-[#EC8F32] text-white rounded-full px-[20px] py-[10px]  hover:text-black"

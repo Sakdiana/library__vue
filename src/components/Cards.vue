@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-start gap-[50px] flex-wrap">
+  <div class="container flex items-center justify-start gap-[50px] flex-wrap">
     <Card
       v-for="book in displayedBooks"
       :key="book.id"
