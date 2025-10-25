@@ -7,6 +7,7 @@ import Cart from "@/views/Cart.vue";
 import PopularBooks from "@/views/PopularBooks.vue";
 import Favorite from "@/views/Favorite.vue";
 import Login from "@/views/Login.vue";
+import BookPage from "@/components/BookPage.vue";
 
 const routes = [
   {
@@ -19,6 +20,7 @@ const routes = [
       { path: "/cart", component: Cart },
       { path: "/favorite", component: Favorite },
       { path: "/login", component: Login },
+       { path: '/book/:id', component: BookPage }
 
 
 

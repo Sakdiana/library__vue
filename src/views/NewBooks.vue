@@ -4,7 +4,7 @@ import Cards from '@/components/Cards.vue';
 </script>
 
 <template>
-    <section class="mt-[100px]">
+    <section class="mt-[100px] min-h-screen ">
         <div class="container">
             <h2 class="text-white text-center mb-[80px] font-bold text-4xl">Новинки</h2>
             <div class="">

@@ -20,6 +20,6 @@ import Sections from "@/components/Sections.vue";
       <Cards type="popular" countToShow />
     </div>
 
-    <Sections/>
+    <Sections />
   </div>
 </template>

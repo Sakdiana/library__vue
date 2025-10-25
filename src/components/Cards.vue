@@ -1,7 +1,8 @@
 <template>
-  <div class="container flex items-center justify-between gap-[30px] flex-wrap">
+  <div class="container flex items-center justify-between max-[800px]:justify-center gap-[30px] flex-wrap">
     <Card
       v-for="book in displayedBooks"
+      :id="book.id"
       :key="book.id"
       :bookCover="book.bookCover"
       :autor="book.autor"

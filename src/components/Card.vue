@@ -23,14 +23,9 @@
             d="M21.435 5.318a5.25 5.25 0 0 0-7.425 0L12 7.329l-2.01-2.01a5.25 5.25 0 1 0-7.425 7.425l2.01 2.01L12 21.435l7.425-7.425 2.01-2.01a5.25 5.25 0 0 0 0-7.425z"
           />
         </svg>
-        
       </button>
 
-      <img
-        class="w-full h-[260px] object-cover"
-        :src="bookCover"
-        :alt="name"
-      />
+      <img class="w-full h-[260px] object-cover" :src="bookCover" :alt="name" />
       <div class="p-4 flex flex-col justify-between flex-1">
         <div>
           <p class="text-gray-400 text-sm font-light truncate">{{ autor }}</p>
@@ -46,14 +41,26 @@
           </h2>
         </div>
       </div>
+
+      <div class="p-4">
+        <button
+          @click="goToBook"
+          class="font-bold text-xs bg-[#EC8F32] text-white rounded-full px-[20px] py-[10px] hover:text-black transition-all duration-300"
+        >
+          подробнее
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const props = defineProps<{
+  id: number;
   bookCover: string;
   autor: string;
   categoryId: number;
@@ -64,6 +71,10 @@ const isFavorite = ref(false);
 
 function toggleFavorite() {
   isFavorite.value = !isFavorite.value;
+}
+
+function goToBook() {
+  router.push(`/book/${props.id}`);
 }
 
 function getCategoryName(categoryId: number): string {
@@ -77,8 +88,6 @@ function getCategoryName(categoryId: number): string {
 </script>
 
 <style scoped>
-
-
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;

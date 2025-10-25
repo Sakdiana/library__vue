@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <div class="flex items-center justify-between mb-[100px]">
+      <div class="flex items-center justify-between mb-[100px] max-[530px]:flex-col max-[530px]:gap-[10px]">
         <h2 class="font-medium text-[32px] text-white">{{ title }}</h2>
         <RouterLink
           v-if="link"
