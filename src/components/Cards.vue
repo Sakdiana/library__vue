@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex items-center justify-start gap-[50px] flex-wrap">
+  <div class="container flex items-center justify-between gap-[30px] flex-wrap">
     <Card
       v-for="book in displayedBooks"
       :key="book.id"
@@ -18,7 +18,7 @@ import { books } from "@/data";
 
 const props = defineProps<{
   type: "new" | "popular";
-  countToShow: boolean;
+  countToShow?: boolean;
 }>();
 
 const displayedBooks = computed(() => {
@@ -29,6 +29,7 @@ const displayedBooks = computed(() => {
     list = list.filter((b) => b.isPopular);
   }
 
-  return props.countToShow ? list.slice(0, 6) : list;
+  return props.countToShow ? list.slice(0, 4) : list;
 });
+
 </script>

@@ -1,3 +1,5 @@
+import {Category,Book} from './types'
+
 export const category = [
   {
     id: 1,
