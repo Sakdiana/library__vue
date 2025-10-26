@@ -8,21 +8,25 @@
         @click="toggleFavorite"
         aria-label="Добавить в избранное"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6 transition-colors duration-300"
-          :class="isFavorite ? 'text-red-500 fill-red-500' : 'text-gray-400'"
+        <div
+          class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer inline-flex items-center justify-center"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21.435 5.318a5.25 5.25 0 0 0-7.425 0L12 7.329l-2.01-2.01a5.25 5.25 0 1 0-7.425 7.425l2.01 2.01L12 21.435l7.425-7.425 2.01-2.01a5.25 5.25 0 0 0 0-7.425z"
-          />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 transition-colors duration-300"
+            :class="isFavorite ? 'text-red-500 fill-red-500' : 'text-gray-500'"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21.435 5.318a5.25 5.25 0 0 0-7.425 0L12 7.329l-2.01-2.01a5.25 5.25 0 1 0-7.425 7.425l2.01 2.01L12 21.435l7.425-7.425 2.01-2.01a5.25 5.25 0 0 0 0-7.425z"
+            />
+          </svg>
+        </div>
       </button>
 
       <img class="w-full h-[260px] object-cover" :src="bookCover" :alt="name" />

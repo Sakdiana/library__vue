@@ -90,7 +90,21 @@
           </RouterLink>
 
           <RouterLink :to="'/favorite'" class="w-[30px]">
-            <img src="/images/svg/fav.svg" alt="" />
+            <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 transition-colors duration-300 text-white"
+          
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21.435 5.318a5.25 5.25 0 0 0-7.425 0L12 7.329l-2.01-2.01a5.25 5.25 0 1 0-7.425 7.425l2.01 2.01L12 21.435l7.425-7.425 2.01-2.01a5.25 5.25 0 0 0 0-7.425z"
+          />
+        </svg>
           </RouterLink>
         </div>
 

@@ -1,6 +1,14 @@
+<script setup lang="ts">
+import BackButton from '@/components/BackButton.vue';
+
+</script>
+
 <template>
   <section class="min-h-screen">
     <div class="container">
+
+       <BackButton label="На главную" to="/" />
+
       <h1>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, sapiente
         officia pariatur sunt vel ipsam minima perferendis sed, provident sint
