@@ -1,7 +1,38 @@
+<script setup lang="ts">
+import { ref, onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
+
+const hasFavorites = ref(false);
+const route = useRoute();
+
+const checkFavorites = () => {
+  try {
+    const stored = localStorage.getItem("favorites");
+    const favorites = stored ? JSON.parse(stored) : [];
+    hasFavorites.value = favorites.length > 0;
+  } catch (e) {
+    console.warn("Ошибка при чтении избранных:", e);
+    hasFavorites.value = false;
+  }
+};
+
+onMounted(() => {
+  checkFavorites();
+
+  // слушаем локальные изменения избранного
+  window.addEventListener("favorites-changed", checkFavorites);
+
+  // и внешние (другая вкладка)
+  window.addEventListener("storage", checkFavorites);
+});
+
+</script>
+
 <template>
   <header class="bg-[#000000EB] py-4">
     <div class="container">
       <div class="flex items-center justify-between">
+        <!-- Логотип -->
         <RouterLink :to="'/'" class="flex items-center gap-3">
           <img
             class="w-[60px] h-[60px] rounded-full object-cover"
@@ -11,6 +42,7 @@
           <span class="text-white text-xl font-semibold">BookStore</span>
         </RouterLink>
 
+        <!-- Поиск -->
         <div
           class="flex items-center gap-3 max-w-[300px] w-full text-white border border-white rounded-full py-[6px] px-[15px] max-[970px]:hidden"
         >
@@ -36,19 +68,19 @@
           </svg>
         </div>
 
+        <!-- Навигация -->
         <nav class="max-[970px]:hidden">
           <ul class="flex items-center gap-6">
             <RouterLink
               :to="'/'"
-             class="text-white text-base font-medium hover:text-gray-300 cursor-pointer"
-             
+              class="text-white text-base font-medium hover:text-gray-300 cursor-pointer"
             >
               Главное
             </RouterLink>
 
             <RouterLink
               :to="'/newBooks'"
-             class="text-white text-base font-medium hover:text-gray-300 cursor-pointer"
+              class="text-white text-base font-medium hover:text-gray-300 cursor-pointer"
             >
               Новинки
             </RouterLink>
@@ -59,28 +91,14 @@
             >
               Популярное
             </RouterLink>
-           
-            
           </ul>
         </nav>
 
+        <!-- Иконки -->
         <div class="flex items-center gap-4 text-white max-[970px]:hidden">
-
-
-
-          <RouterLink
-            :to="'/cart'"
-            class="relative"
-          >
+          <RouterLink :to="'/cart'" class="relative">
             <img src="/images/svg/cart.png" alt="" />
-            <!-- <span
-                class="absolute -top-1 -right-1 bg-red-500 text-xs w-4 h-4 flex items-center justify-center rounded-full"
-              >
-                3
-              </span> -->
           </RouterLink>
-
-
 
           <RouterLink
             :to="'/login'"
@@ -91,26 +109,24 @@
 
           <RouterLink :to="'/favorite'" class="w-[30px]">
             <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6 transition-colors duration-300 text-white"
-          
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21.435 5.318a5.25 5.25 0 0 0-7.425 0L12 7.329l-2.01-2.01a5.25 5.25 0 1 0-7.425 7.425l2.01 2.01L12 21.435l7.425-7.425 2.01-2.01a5.25 5.25 0 0 0 0-7.425z"
-          />
-        </svg>
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              :stroke="hasFavorites ? 'red' : 'white'"
+              :class="[
+                'w-6 h-6 transition-colors duration-300',
+                hasFavorites ? 'text-red-500 fill-red-500' : 'text-white',
+              ]"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.435 5.318a5.25 5.25 0 0 0-7.425 0L12 7.329l-2.01-2.01a5.25 5.25 0 1 0-7.425 7.425l2.01 2.01L12 21.435l7.425-7.425 2.01-2.01a5.25 5.25 0 0 0 0-7.425z"
+              />
+            </svg>
           </RouterLink>
         </div>
-
-        <!-- <div class="menu">
-            <img src="/images/svg/menu.png" alt="">
-          </div> -->
       </div>
     </div>
   </header>

@@ -13,12 +13,12 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            :fill="isFavorite ? 'currentColor' : 'none'"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
             class="w-6 h-6 transition-colors duration-300"
-            :class="isFavorite ? 'text-red-500 fill-red-500' : 'text-gray-500'"
+            :class="isFavorite ? 'text-red-500' : 'text-gray-500'"
           >
             <path
               stroke-linecap="round"
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
@@ -73,8 +73,53 @@ const props = defineProps<{
 
 const isFavorite = ref(false);
 
+function safeReadFavorites() {
+  try {
+    const raw = localStorage.getItem("favorites");
+    if (!raw) return [];
+    return JSON.parse(raw);
+  } catch (e) {
+    console.warn("Не удалось прочитать favorites из localStorage:", e);
+    return [];
+  }
+}
+
+function safeWriteFavorites(favorites: any[]) {
+  try {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  } catch (e) {
+    console.warn("Не удалось записать favorites в localStorage:", e);
+  }
+}
+
+onMounted(() => {
+  const favorites = safeReadFavorites();
+  isFavorite.value = favorites.some((b: any) => b.id == props.id);
+});
+
 function toggleFavorite() {
-  isFavorite.value = !isFavorite.value;
+  const favorites = safeReadFavorites();
+  const index = favorites.findIndex((b: any) => b.id == props.id);
+
+  if (index === -1) {
+    // добавить
+    favorites.push({
+      id: props.id,
+      name: props.name,
+      autor: props.autor,
+      categoryId: props.categoryId,
+      bookCover: props.bookCover,
+    });
+    safeWriteFavorites(favorites);
+    isFavorite.value = true;
+    alert("Добавлено в избранное ❤️");
+  } else {
+    // удалить
+    favorites.splice(index, 1);
+    safeWriteFavorites(favorites);
+    isFavorite.value = false;
+    alert("Удалено из избранного 💔");
+  }
 }
 
 function goToBook() {
