@@ -15,3 +15,4 @@ import BackButton from '@/components/BackButton.vue';
         </div>
     </section>
 </template>
+

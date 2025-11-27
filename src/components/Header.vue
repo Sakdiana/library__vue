@@ -19,20 +19,18 @@ const checkFavorites = () => {
 onMounted(() => {
   checkFavorites();
 
-  // слушаем локальные изменения избранного
   window.addEventListener("favorites-changed", checkFavorites);
 
-  // и внешние (другая вкладка)
   window.addEventListener("storage", checkFavorites);
 });
 
+const isOpen=ref(false)
 </script>
 
 <template>
   <header class="bg-[#000000EB] py-4">
     <div class="container">
       <div class="flex items-center justify-between">
-        <!-- Логотип -->
         <RouterLink :to="'/'" class="flex items-center gap-3">
           <img
             class="w-[60px] h-[60px] rounded-full object-cover"
@@ -42,7 +40,6 @@ onMounted(() => {
           <span class="text-white text-xl font-semibold">BookStore</span>
         </RouterLink>
 
-        <!-- Поиск -->
         <div
           class="flex items-center gap-3 max-w-[300px] w-full text-white border border-white rounded-full py-[6px] px-[15px] max-[970px]:hidden"
         >
@@ -68,7 +65,6 @@ onMounted(() => {
           </svg>
         </div>
 
-        <!-- Навигация -->
         <nav class="max-[970px]:hidden">
           <ul class="flex items-center gap-6">
             <RouterLink
@@ -94,7 +90,6 @@ onMounted(() => {
           </ul>
         </nav>
 
-        <!-- Иконки -->
         <div class="flex items-center gap-4 text-white max-[970px]:hidden">
           <RouterLink :to="'/cart'" class="relative">
             <img src="/images/svg/cart.png" alt="" />
@@ -126,6 +121,36 @@ onMounted(() => {
               />
             </svg>
           </RouterLink>
+        </div>
+
+        <div
+        @click=""
+        class="menu hidden max-[970px]:block">
+          <svg
+            class="w-6 h-6 transition-transform duration-200 text-white"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 6h18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M3 12h18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M3 18h18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
         </div>
       </div>
     </div>
