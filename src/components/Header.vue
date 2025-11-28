@@ -1,30 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
-import { useRoute } from "vue-router";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute, RouterLink } from "vue-router";
 
-const hasFavorites = ref(false);
+const store = useStore();
 const route = useRoute();
+const isOpen = ref(false);
 
-const checkFavorites = () => {
-  try {
-    const stored = localStorage.getItem("favorites");
-    const favorites = stored ? JSON.parse(stored) : [];
-    hasFavorites.value = favorites.length > 0;
-  } catch (e) {
-    console.warn("Ошибка при чтении избранных:", e);
-    hasFavorites.value = false;
-  }
-};
-
-onMounted(() => {
-  checkFavorites();
-
-  window.addEventListener("favorites-changed", checkFavorites);
-
-  window.addEventListener("storage", checkFavorites);
-});
-
-const isOpen=ref(false)
+// computed для наличия избранных книг
+const hasFavorites = computed(() => store.getters.getFavorites.length > 0);
 </script>
 
 <template>
@@ -123,33 +107,16 @@ const isOpen=ref(false)
           </RouterLink>
         </div>
 
-        <div
-        @click=""
-        class="menu hidden max-[970px]:block">
+        <div @click="isOpen = !isOpen" class="menu hidden max-[970px]:block">
           <svg
             class="w-6 h-6 transition-transform duration-200 text-white"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M3 6h18"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <path
-              d="M3 12h18"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <path
-              d="M3 18h18"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
+            <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </div>
       </div>

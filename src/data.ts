@@ -1,6 +1,6 @@
 import { Category, Book } from "./types";
 
-export const category = [
+export const category:Category[] = [
   {
     id: 1,
     name: "Horror",
@@ -23,7 +23,7 @@ export const category = [
   },
 ];
 
-export const books = [
+export const books:Book[] = [
   {
     id: 1,
     name: "Убийства и кексики.",

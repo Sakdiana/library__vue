@@ -9,6 +9,8 @@ import Favorite from "@/views/Favorite.vue";
 import Login from "@/views/Login.vue";
 import BookPage from "@/components/BookPage.vue";
 
+
+
 const routes = [
   {
     path: "/",

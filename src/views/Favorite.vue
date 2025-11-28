@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import BackButton from "@/components/BackButton.vue";
 import Card from "@/components/Card.vue";
 
-// Список избранных книг
-const favorites = ref<any[]>([]);
+const store = useStore();
 
-onMounted(() => {
-  try {
-    const stored = localStorage.getItem("favorites");
-    favorites.value = stored ? JSON.parse(stored) : [];
-  } catch (e) {
-    console.warn("Ошибка при чтении favorites:", e);
-    favorites.value = [];
+// Берём избранные книги из Vuex (реактивно)
+const favorites = computed(() => store.getters.getFavorites);
+
+// Функция для удаления книги из избранного
+const removeFavorite = (bookId: number) => {
+  const book = favorites.value.find(b => b.id === bookId);
+  if (book) {
+    store.commit("toggleFavorite", book); // Vuex сразу обновит список
   }
-});
+};
 </script>
 
 <template>
@@ -30,10 +31,7 @@ onMounted(() => {
       </div>
 
       <!-- Список избранных -->
-      <div
-        v-else
-        class="flex flex-wrap justify-start gap-[32px]"
-      >
+      <div v-else class="flex flex-wrap justify-start gap-[32px]">
         <Card
           v-for="book in favorites"
           :key="book.id"
@@ -42,6 +40,7 @@ onMounted(() => {
           :autor="book.autor"
           :category-id="book.categoryId"
           :book-cover="book.bookCover"
+          @toggle-favorite="removeFavorite(book.id)"
         />
       </div>
     </div>
