@@ -3,7 +3,7 @@
     <div
       class="w-[220px] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col relative"
     >
-      <!-- Кнопка избранного -->
+      <!-- Избранное -->
       <button
         class="absolute top-3 right-3"
         @click="toggleFavorite"
@@ -30,7 +30,7 @@
         </div>
       </button>
 
-      <!-- Обложка книги -->
+      <!-- Обложка -->
       <img class="w-full h-[260px] object-cover" :src="bookCover" :alt="name" />
 
       <!-- Информация о книге -->
@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <!-- Кнопки "Подробнее" и "В корзину" -->
+      <!-- Кнопки -->
       <div class="p-4 flex flex-col items-center w-full gap-[20px]">
         <button
           @click="goToBook"
@@ -60,9 +60,10 @@
         </button>
 
         <button
+          @click="toggleCart"
           class="font-bold w-full text-xs border border-[#EC8F32] hover:text-black rounded-full px-[20px] py-[10px] text-[#EC8F32] transition-all duration-300"
         >
-          в корзину
+          {{ inCart ? 'В корзине' : 'в корзину' }}
         </button>
       </div>
     </div>
@@ -77,6 +78,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const store = useStore();
 
+// props книги
 const props = defineProps<{
   id: number;
   bookCover: string;
@@ -85,12 +87,12 @@ const props = defineProps<{
   name: string;
 }>();
 
-// Проверяем, есть ли книга в избранном через Vuex
+// Проверка: есть ли в избранном
 const isFavorite = computed(() =>
   store.getters.getFavorites.some((b: any) => b.id === props.id)
 );
 
-// Добавление/удаление книги из избранного через Vuex
+// Добавление/удаление из избранного
 const toggleFavorite = () => {
   store.commit("toggleFavorite", {
     id: props.id,
@@ -101,12 +103,34 @@ const toggleFavorite = () => {
   });
 };
 
+// Проверка: есть ли в корзине
+const inCart = computed(() =>
+  store.getters.getCart.some((b: any) => b.id === props.id)
+);
+
+// Добавление/удаление из корзины
+const toggleCart = () => {
+  if (inCart.value) {
+    const cart = store.getters.getCart.filter((b: any) => b.id !== props.id);
+    store.commit("setCart", cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  } else {
+    store.commit("addToCart", {
+      id: props.id,
+      name: props.name,
+      autor: props.autor,
+      bookCover: props.bookCover,
+      categoryId: props.categoryId,
+    });
+  }
+};
+
 // Переход на страницу книги
 const goToBook = () => {
   router.push(`/book/${props.id}`);
 };
 
-// Пример категорий
+// Категории
 function getCategoryName(categoryId: number): string {
   const categories: Record<number, string> = {
     1: "Роман",

@@ -6,7 +6,9 @@ import { store } from './store'
 
 const app = createApp(App)
 
-app.use(router)  // подключаем роутер
-app.use(store)   // подключаем Vuex store
+app.use(router)  
+app.use(store)   
 
-app.mount('#app') // монтируем приложение
+app.mount('#app')
+store.dispatch("loadFavorites");
+store.dispatch("loadCart");

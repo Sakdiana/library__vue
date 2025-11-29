@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute, RouterLink } from "vue-router";
 
 const store = useStore();
 const route = useRoute();
 const isOpen = ref(false);
+const cartCount = computed(() => store.getters.cartCount);
 
-// computed для наличия избранных книг
+onMounted(() => {
+  store.commit("loadCartFromStorage");
+});
+
 const hasFavorites = computed(() => store.getters.getFavorites.length > 0);
 </script>
 
@@ -75,9 +79,17 @@ const hasFavorites = computed(() => store.getters.getFavorites.length > 0);
         </nav>
 
         <div class="flex items-center gap-4 text-white max-[970px]:hidden">
-          <RouterLink :to="'/cart'" class="relative">
+         <RouterLink to="/cart" class="relative">
             <img src="/images/svg/cart.png" alt="" />
+
+            <span
+              v-if="cartCount > 0"
+              class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center"
+            >
+              {{ cartCount }}
+            </span>
           </RouterLink>
+
 
           <RouterLink
             :to="'/login'"

@@ -33,7 +33,7 @@
             <button
               class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full transition-colors duration-300"
             >
-              Купить
+              В корзину
             </button>
           </div>
         </div>

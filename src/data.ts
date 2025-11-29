@@ -27,6 +27,8 @@ export const books:Book[] = [
   {
     id: 1,
     name: "Убийства и кексики.",
+    price:500,
+
     autor: "Питер Боланд",
     bookCover: "/bookCover/murderAndCubcakes.jpg",
     categoryId: 3,
@@ -38,6 +40,8 @@ export const books:Book[] = [
   {
     id: 2,
     name: "Круть",
+    price:500,
+    
     autor: "Виктор Пелевин",
     bookCover: "/bookCover/crut.jpg",
     categoryId: 1,
@@ -49,6 +53,8 @@ export const books:Book[] = [
   {
     id: 3,
     name: "Унесенные ветром.",
+    price:500,
+
     autor: "Шарлотта Леонард",
     bookCover: "/bookCover/goneWithWild.jpg",
     categoryId: 4,
@@ -60,6 +66,8 @@ export const books:Book[] = [
   {
     id: 4,
     name: "yellow face",
+    price:500,
+
     autor: "Ребекка Куанг",
     bookCover: "/bookCover/yellowFace.jpg",
     categoryId: 3,
@@ -71,6 +79,7 @@ export const books:Book[] = [
   {
     id: 5,
     name: "К себе нежно. Книга о том, как ценить и беречь себя",
+    price:500,
     autor: "J.K. Rowling",
     bookCover: "/bookCover/gentlewithyou.jpg",
     categoryId: 5,
